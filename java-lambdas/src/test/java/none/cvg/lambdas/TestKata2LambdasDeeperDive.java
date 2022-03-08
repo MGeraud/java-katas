@@ -45,8 +45,8 @@ public class TestKata2LambdasDeeperDive {
                 return Integer.max(x, y);
             }
         }
-        MyBiFunction adder = new MyBiFunction();
-        //  -------------------
+
+        BiFunction<Integer,Integer,Integer> adder = Integer::sum;
 
         assertEquals(7, adder.apply(integer1, integer2),
                 "The function should produce a result of 7");
@@ -67,7 +67,7 @@ public class TestKata2LambdasDeeperDive {
         //  Create an addOne, which passes in a 1 and a int n to the add function and
         //  returns a partial application of 1, n.
         //  HINT: use the add.apply(?, ?)
-        Function<Integer, Integer> addOne = n -> 0;
+        Function<Integer, Integer> addOne = n -> add.apply(1 ,n);
 
         // TODO:
         //  Replace the 6 with a call to addOne
@@ -86,32 +86,17 @@ public class TestKata2LambdasDeeperDive {
         // TODO:
         //  Replace the below Function to a lambda
         //  Replace the zero with a valid function call
-        Calculator addition = new Calculator() {
-            @Override
-            public int calculate(int x, int y) {
-                return 0;
-            }
-        };
+        Calculator addition = (x , y ) -> Integer.sum(x,y);
 
         // TODO:
         //  Replace the below Function to a lambda
         //  Replace the zero with a valid function call
-        Calculator subtraction = new Calculator() {
-            @Override
-            public int calculate(int x, int y) {
-                return 0;
-            }
-        };
+        Calculator subtraction = (x , y ) -> x - y;
 
         // TODO:
         //  Replace the below Function to a lambda
         //  Replace the zero with a valid function call
-        Calculator multiplication = new Calculator() {
-            @Override
-            public int calculate(int x, int y) {
-                return 0;
-            }
-        };
+        Calculator multiplication = (x , y ) -> x * y;
 
         assertTrue(7 == addition.calculate(6, 1),
                 "The addition should return a value of 7");
@@ -135,12 +120,8 @@ public class TestKata2LambdasDeeperDive {
         // TODO:
         //  Replace the anonymous class with a lambda.
         //  Replace the postions of o2 and o1 to pass the test as well
-        Comparator<Person> nameSorter = new Comparator<>() {
-            @Override
-            public int compare(Person o1, Person o2) {
-                return o2.getLastName().compareTo(o1.getLastName());
-            }
-        };
+        Comparator<Person> nameSorter = Comparator.comparing(Person::getLastName);
+
         List<Person> actualList = new ArrayList<>();
         actualList.addAll(persons);
         Collections.sort(actualList, nameSorter);
